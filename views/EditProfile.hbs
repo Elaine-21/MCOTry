@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+<link href="bootstrap.min.css" rel="stylesheet">
+<link href="user.css" rel="stylesheet">
+<link href="edit.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<title>La Salle Eats | Edit Profile </title>
+
+<style>
+
+
+/*search bar*/
+
+.icon {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #2F3B1C;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-left: 10px;
+        }
+
+        .loginregister {
+            color: #444444;
+            font-weight: bold;
+        }
+
+        a:link, a:visited {
+            color: #444444;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #526534;
+            text-decoration: none;
+        }
+
+        .loginregister:hover {
+            color: #526534;
+        }
+
+        .navlinks {
+            word-spacing: 10px;
+            margin-right: 20px;
+            font-size:larger;
+            text-underline-offset: auto;
+        }
+
+        .button {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        /* searchbar */
+
+        #searchbar {
+            margin-left: 25px;
+            width: 100%;
+            max-width: 300px;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 60px;
+            padding: 10px 20px;
+            backdrop-filter: blur(4px) saturate(180%);
+        }
+
+        #searchbar input {
+            background: transparent;
+            flex: 1;
+            border: 0;
+            outline: none;
+            font-size: 20px;
+            color: #444444;
+        }
+
+        #searchbar button img{
+            width: 30px;
+            height: 30px;
+        }
+
+        #searchbar button {
+            border: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0);
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            backdrop-filter: blur(4px) saturate(180%);
+        }
+
+        ::placeholder {
+            color: #444444;
+        }
+</style>
+	
+
+
+
+</head>
+<body>
+	<header class="navigation" style="position: sticky; top: 0; z-index: 999;">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
+            <div class="container">
+                <a href="Homepage">
+                    <img src = "images/logo.png" width = 100px height = 85px/>
+                </a>
+				<form action="" id="searchbar" style="margin-top: 15px; margin-left: 40px; border: #2F3B1C solid 2px;">
+					<input type="text" placeholder="Search...">
+					<button type="submit"><img src="./images/searchicon.png"></button>
+				</form>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+    
+                <div class="collapse navbar-collapse" id="navbar">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="Homepage">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="restolist">Restaurants</a>
+                        </li>
+               			   <li class="nav-item" onclick="openNav()">
+							</li>
+                        {{#if user}}
+                                <li clas="nav-item">
+							        <a class="nav-link" href="/logout">Sign Out</a>
+						        </li>
+                                <a href="User">
+						            <img src="images/defaulticon.png" class="icon" style="a:hover { border-radius: #2F3B1C solid 4px;}">
+						        </a>
+                        {{else}}
+                                <p class="nav-link" href="" onclick="openNav()" style="cursor: pointer;">Login</p>
+                        {{/if}}
+                    </li>
+                </div>
+            </div>
+        </nav>
+	</header>
+
+	<div class="">
+      <div style= "margin-top: 5%; display:flex;" class = "justify-content-center">
+        <div class="col-xl-4">
+		
+          <div class="card card-profile shadow">
+            <div class="row justify-content-center">
+			
+              <div class="col-lg-3 order-lg-2">
+			  
+                <div class="card-profile-image profile-pic">
+					<div class="profile-pic">
+						<label class="-label" for="file">
+						
+						<input id="file" type="file" onchange="loadFile(event)"><img src="" id="output" class="rounded-circle"></input>
+						</label>
+					</div>
+                </div>
+				
+				
+              </div>
+            </div>
+            <div class="card-body pt-0 pt-md-4">
+              <div class="row">
+                <div class="col" style ="margin-top:30px">
+                  <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                   
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+				
+				<form class = "updated" action="/EditProfile" method="POST">
+
+
+					<input type = "hidden" name = "user_id" value = "{{user._id}}">
+					<input type="password" id="password" name="password" placeholder="Password...">
+					<br>
+					
+					<input type="text" id="lname" name="lastname" placeholder="Course...">
+					<br>
+					<input type="text" id="lname" name="lastname" placeholder="School...">
+					<br>
+					<textarea id="subject" name="subject" placeholder="Bio..." style="height:200px"></textarea>
+				</form>
+              </div>
+			  <div class = "save">
+					<a href="User"><button class="btn edit" style = " white-space:nowrap; float:left;">Save Edit</button></a>
+				</div>
+            </div>
+          </div>
+        </div>
+	</div>
+<script src="user.js"></script>
+<script src="edit.js"></script>
+</body>
