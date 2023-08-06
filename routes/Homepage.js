@@ -7,7 +7,6 @@ const { Cafe } = require('../models/obscurecafe')
 const { Store } = require('../models/store')
 const { Tahmee } = require('../models/tahmee')
 const { User, validateUser } = require('../models/user');
-const { Profile } = require('../models/Profile');
 const Joi = require('joi');
 const bcrypt = require('bcrypt');
 
@@ -16,7 +15,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/Homepage', (req, res) => {
-    
     if (req.session.username) {
         res.render('Homepage', { user: req.session.username });
     } 
@@ -33,9 +31,34 @@ app.get('/restolist', (req, res) => {
         res.render('restolist');
     }
 });
-
-
   
+app.post('/SearchResult', async (req, res) => {
+    const searchTerm = req.body.searchTerm ? req.body.searchTerm.trim() : '';
+    console.log('Search Term:', searchTerm); // Check the value of the search term
+  
+    try {
+      // Ensure searchTerm is not empty before using in the regex query
+      if (searchTerm !== '') {
+        const searchResults = await Store.find({
+          $or: [
+            { username: { $regex: searchTerm, $options: 'i' } },
+            { token: { $regex: searchTerm, $options: 'i' } },
+            { content: { $regex: searchTerm, $options: 'i' } },
+          ],
+        });
+  
+        console.log('Search Results:', searchResults); // Log the search results
+  
+        res.render('SearchResult', { results: searchResults });
+      } else {
+        res.render('SearchResult', { results: [] }); // Render the SearchResult template with an empty array
+      }
+    } catch (err) {
+      console.error('Error executing database query:', err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
 app.post('/signup', async (req, res) => {
     const { error } = validateUser(req.body);
     if (error) return res.send(`Error: ${error}`);
@@ -52,8 +75,6 @@ app.post('/signup', async (req, res) => {
         username, password, re_password, Auth
     });
 
-  
-
     console.log(user);
 
     const token = await user.generateAuthToken();
@@ -66,6 +87,7 @@ app.post('/signup', async (req, res) => {
     user = await user.save();
     res.header('token', token).render('Homepage');
 });
+
 
 app.post('/24signup', async (req, res) => {
     const { error } = validateUser(req.body);
@@ -275,7 +297,7 @@ app.post('/login', async (req, res) => {
     const { error } = validate(req.body);
     if (error) return res.send(`Error: ${error}`);
     
-    let { username, password} = req.body; 
+    let { username, password } = req.body;
 
     let user = await User.findOne({ username });
     if(!user) return res.status(400).send('invalid credentials!');
@@ -283,8 +305,7 @@ app.post('/login', async (req, res) => {
     const validPassword = await bcrypt.compare(password, user.password);
     if(!validPassword) return res.status(400).send('invalid credentials!');
 
-
-    // req.session.username = username;
+    req.session.username = username;
 
     console.log('Login attempt:');
     console.log('Username:', username);
@@ -483,7 +504,6 @@ app.get('/24logout', (req, res) => {
     });
 });
 
-
 app.get('/cheeselogout', (req, res) => {
     req.session.destroy((err) => {
       if (err) {
@@ -626,10 +646,11 @@ app.post('/tahmeesubmit_comment', async (req, res) => {
 function validate(req) {
   const schema = {
       username: Joi.string().required().trim(),
-      password: Joi.required(),
-      isRememberMe: Joi.boolean().optional()
+      password: Joi.required()
   };
   return Joi.validate(req, schema);
 }
 
+
 module.exports = app;
+
