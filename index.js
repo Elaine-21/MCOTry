@@ -1,8 +1,6 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const multer = require('multer');
-
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -15,18 +13,7 @@ const GangGangStore = require('./routes/GangGangStore');
 const Tahmee = require('./routes/Tahmee');
 const Store = require('./routes/Store');
 const User = require('./routes/User');
-const EditProfile = require('./routes/EditProfile'); // inadd
-
-
-const fileStorageEngine = multer.diskStorage({
-  destination: (req, file, cb) =>{
-    cb(null, './images')
-  },
-  filename: (req, file, cb) =>{
-    cb(null, file.originalname, )
-  }
-});
-
+const SearchResult = require('./routes/SearchResult');
 require('dotenv').config();
 require('./db/db');
 
@@ -52,9 +39,7 @@ app.use('/EverythingButCheese', EverythingButCheese);
 app.use('/GangGangStore', GangGangStore);
 app.use('/Tahmee', Tahmee);
 app.use('/User', User);
-app.use('/EditProfile', EditProfile); //inadd
-
-const upload = multer({storage: fileStorageEngine});
+app.use('/SearchResult', SearchResult);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
