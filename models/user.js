@@ -18,10 +18,6 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
-    isRememberMe:{
-        type: Boolean,
-        required: true
-    },
     Auth: Boolean,
     tokens: [{
         token: {
