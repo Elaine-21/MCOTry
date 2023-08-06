@@ -17,9 +17,3 @@ function More(){
 	showmore.style.display = "none";
 	Text.style.display = "inline";
 }
-
-const editBtn = document.getElementById('editProfileButton');
-editBtn.addEventListener('click', (event) => {
-  event.preventDefault();
-  window.location.href = '/EditProfile'; // Redirect to EditProfile page
-});

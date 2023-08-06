@@ -118,19 +118,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="restolist">Restaurants</a>
                         </li>
-               			   <li class="nav-item" onclick="openNav()">
-							</li>
-                        {{#if user}}
-                                <li clas="nav-item">
-							        <a class="nav-link" href="/logout">Sign Out</a>
-						        </li>
-                                <a href="User">
-						            <img src="images/defaulticon.png" class="icon" style="a:hover { border-radius: #2F3B1C solid 4px;}">
-						        </a>
-                        {{else}}
-                                <p class="nav-link" href="" onclick="openNav()" style="cursor: pointer;">Login</p>
-                        {{/if}}
-                    </li>
+						<li class="nav-item">
+							<a class="nav-link" href="Homepage">Sign Out</a>
+						</li>
+                    </ul>
+						<a href="User">
+						<img src="./images/defaulticon.png" class="icon" style="a:hover { border-radius: #2F3B1C solid 4px;}">
+						</a>
                 </div>
             </div>
         </nav>
@@ -142,9 +136,9 @@
       <!-- Header container -->
       <div class="container-fluid">
         <div class="row">
-          <form class="col-lg-7 col-md-10" action = "/EditProfile" method = "post">
-            <button type = "submit" class="btn edit" style = " white-space:nowrap">Edit profile</button>
-          </form>
+          <div class="col-lg-7 col-md-10">
+            <button href="editProfileBtn" class="btn edit" style = " white-space:nowrap">Edit profile</button>
+          </div>
         </div>
       </div>
     </div>
@@ -441,8 +435,6 @@
   <footer class="footer">
   </footer>
 
-<script src="user.js"></script>
-<script src="jquery.min.js"></script>
-<script src="bootstrap.bundle.min.js"></script>
+<script src="user.js">
 </script>
 </body>

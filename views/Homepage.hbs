@@ -249,13 +249,9 @@
                         <input type ="submit" value = "Log in">
                     </div><br>
                     
-                    <div style = "vertical-align: middle;">
-                        <label for = "rememberMe" style = "display: inline-block;">
-                            <input  type= "checkbox" id= "rememberMe" name = "isRememberMe"> 
-                            Remember Me 
-                        </label>
-                        {{!-- <a href = "#" class = "link" id = "forgot_pass" style="color: black;">Forgot password</a> --}}
-                    </div><br><br>
+                    <div class = "form-link">
+                        <a href = "#" class = "link" id = "forgot_pass" style="color: black;">Forgot password</a>
+                    </div><br>
                     
 
                     <span>
@@ -314,8 +310,8 @@
                     <img src = "images/logo.png" width = 100px height = 85px/>
                 </a>
 
-                <form action="/search" id="searchbar" style="margin-top: 15px; margin-left: 40px; border: #2F3B1C solid 2px;">
-                    <input type="text" name="query" placeholder="Search...">
+                <form action="/SearchResult" method = "post" id="searchbar" style="margin-top: 15px; margin-left: 40px; border: #2F3B1C solid 2px;">
+                    <input type="text" name="searchTerm" placeholder="Search...">
                     <button type="submit"><img src="./images/searchicon.png"></button>
                 </form>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar">
@@ -333,7 +329,7 @@
                         <li class="nav-item" onclick="openNav()">
                             {{#if user}}
                                 <li clas="nav-item">
-							        <a class="nav-link" href="logout">Sign Out {{user.username}}</a>
+							        <a class="nav-link" href="logout">Sign Out</a>
 						        </li>
                                 <a href="User">
 						            <img src="images/defaulticon.png" class="icon" style="a:hover { border-radius: #2F3B1C solid 4px;}">
@@ -355,7 +351,7 @@
                 exclusively tailored for the discerning students of DLSU. Join us today to elevate your dining experiences and savor the very best that DLSU's culinary
                 landscape has to offer.
                 </p>
-                <form action="" id="searchbar" style="margin-top: 15px; border: #2F3B1C solid 2px;">
+                <form action="SearchResult" method ="post" id="searchbar" style="margin-top: 15px; border: #2F3B1C solid 2px;">
                     <input type="text" placeholder="Search...">
                     <button type="submit"><img src="./images/searchicon.png"></button>
                 </form>

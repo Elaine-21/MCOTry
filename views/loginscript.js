@@ -31,13 +31,4 @@ function Login_Nav(){
         nav.style.display = "none";
     }
 }
-// const remember = document.getElementById("rememberMe");
-
-// const isChecked = remember.checked;
-
-// console.log(isChecked);
-
-// function toggleCheckbox(){
-//     remember.checked = !remember.checked;
-// }
 // FOR HOMEPAGE
